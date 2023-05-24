@@ -1,40 +1,60 @@
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cursive Play</title>
 
-		<title>reveal.js</title>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/default.css">
+  <link rel="stylesheet" href="style.css">
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+  <style>
+    /* Here goes the CSS for the pink ombre background. 
+    Remember, it will apply to all slides. */
+    .reveal {
+      background: linear-gradient(to right, #FFC0CB, #FFB6C1, #FF69B4, #FF1493);
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide for A -->
+<section>
+    <h2>Letter A</h2>
+    <div id="aRocking" class="rockingLetter">A</div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID_FOR_LETTER_A" frameborder="0" allowfullscreen></iframe>
+  </section>
+  
+  <!-- Slide for B -->
+  <section>
+    <h2>Letter B</h2>
+    <div id="bRocking" class="rockingLetter">B</div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID_FOR_LETTER_B" frameborder="0" allowfullscreen></iframe>
+  </section>
+  
+  <!-- Slide for P -->
+  <section>
+    <h2>Letter P</h2>
+    <div id="pRocking" class="rockingLetter">P</div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID_FOR_LETTER_P" frameborder="0" allowfullscreen></iframe>
+  </section>
+  
+  <!-- Slide for Q -->
+  <section>
+    <h2>Letter Q</h2>
+    <div id="qRocking" class="rockingLetter">Q</div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID_FOR_LETTER_Q" frameborder="0" allowfullscreen></iframe>
+  </section>
+  
+    </div>
+  </div>
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
-
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
-
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+  <script src="https://unpkg.com/reveal.js"></script>
+  <script>
+    // Initializes the presentation
+    Reveal.initialize();
+  </script>
+</body>
 </html>
