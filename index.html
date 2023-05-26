@@ -16,7 +16,8 @@
       background: linear-gradient(to right, #FFC0CB, #FFB6C1, #FF69B4, #FF1493);
     }
   </style>
-      <script src="https://unpkg.com/jsnes/dist/jsnes.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nes-js@0.1.0/dist/nes.min.js"></script>
+
 </head>
 <body>
   <div class="reveal">
@@ -52,7 +53,6 @@
   <section>
     <h2>NES Game</h2>
     <canvas id="nes-canvas" width="256" height="240"></canvas>
-    <button id="load-rom">Load ROM</button>
   </section>
   
   
@@ -64,71 +64,30 @@
     // Initializes the presentation
     Reveal.initialize();
   </script>
-  <!-- <script>
-    document.getElementById('load-rom').addEventListener('click', function() {
-      var req = new XMLHttpRequest();
-      req.open('GET', 'barbie.nes');
-      req.overrideMimeType('text/plain; charset=x-user-defined');
-      
-      req.onload = function() {
-        if (this.status === 200) {
-          var nes = new jsnes.NES({
-            onFrame: function(frameBuffer) {
-              // ... write this to a canvas
-            }
-          });
-    
-          nes.loadROM(this.responseText);
-          nes.start();
+ <script>
+    // Initialize the NES emulator.
+    var nes = new NesJs.NesEmulator('nes-canvas', {
+      onFrame: function(frameBuffer) {
+        var imageData = nes.canvasContext.createImageData(nes.width, nes.height);
+        for (var i = 0; i < frameBuffer.length; i++) {
+          var pixel = frameBuffer[i];
+          imageData.data[i*4] = pixel >> 16;
+          imageData.data[i*4+1] = (pixel >> 8) & 0xFF;
+          imageData.data[i*4+2] = pixel & 0xFF;
+          imageData.data[i*4+3] = 255;
         }
-      }
-      
-      req.send();
+        nes.canvasContext.putImageData(imageData, 0, 0);
+      },
     });
-    </script> -->
-    <script>
-        var canvas = document.getElementById('nes-canvas');
-        var context = canvas.getContext('2d');
-        var imageData = context.getImageData(0, 0, 256, 240);
-        
-        var nes = new jsnes.NES({
-          onFrame: function(frameBuffer) {
-            console.log(frameBuffer);
-            // Convert the frameBuffer to image data
-            for (var i = 0; i < frameBuffer.length; i++) {
-              var rgb = jsnes.Utils.rgbToHex(frameBuffer[i]);
-              var r = parseInt(rgb.substr(1,2), 16);
-              var g = parseInt(rgb.substr(3,2), 16);
-              var b = parseInt(rgb.substr(5,2), 16);
-              
-              imageData.data[i * 4 + 0] = r;
-              imageData.data[i * 4 + 1] = g;
-              imageData.data[i * 4 + 2] = b;
-              imageData.data[i * 4 + 3] = 255;
-            }
-            
-            // Draw the image data to the canvas
-            context.putImageData(imageData, 0, 0);
-          }
-        });
-        
-        document.getElementById('load-rom').addEventListener('click', function() {
-          var req = new XMLHttpRequest();
-          req.open('GET', 'barbie.nes');
-          req.overrideMimeType('text/plain; charset=x-user-defined');
-        
-          req.onload = function() {
-            if (this.status === 200) {
-                console.log(this.responseText);
-              nes.loadROM(this.responseText);
-              nes.start();
-            }
-          }
-        
-          req.send();
-        });
-      </script>
-      
-    
+
+    // Load the ROM file.
+    fetch('barbie.nes')
+      .then(response => response.arrayBuffer())
+      .then(buffer => {
+        nes.loadRom(new Uint8Array(buffer));
+        nes.start();
+      });
+</script>
+
 </body>
 </html>
